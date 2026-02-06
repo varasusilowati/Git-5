@@ -556,10 +556,10 @@ body {
                     <li class="passes">passes: <em>2</em></li>
                     <li class="pending">pending: <em>0</em></li>
                     <li class="failures">failures: <em>0</em></li>
-                    <li class="duration">duration: <em>794ms</em></li>
+                    <li class="duration">duration: <em>713ms</em></li>
                 </ul>
             </div>
-            <ul id="report"><li class="suite"><h1>Simple API Automation Test</h1><ul><li class="test pass slow"><h2>GET product by id<span class="duration">137ms</span></h2><pre><code>async function () {
+            <ul id="report"><li class="suite"><h1>Simple API Automation Test</h1><ul><li class="test pass slow"><h2>GET product by id<span class="duration">406ms</span></h2><pre><code>async function () {
     const response = await fetch(&#x22;https://dummyjson.com/products/1&#x22;);
     // assert status code
     expect(response.status).to.equal(200);
@@ -567,7 +567,7 @@ body {
     // assert response body
     expect(data).to.have.property(&#x22;id&#x22;);
     expect(data).to.have.property(&#x22;title&#x22;);
-  }</code></pre></li><li class="test pass slow"><h2>POST create new user<span class="duration">653ms</span></h2><pre><code>async function () {
+  }</code></pre></li><li class="test pass slow"><h2>POST create new user<span class="duration">303ms</span></h2><pre><code>async function () {
     const payload = {
       firstName: &#x22;Vara&#x22;,
       lastName: &#x22;QA&#x22;,
