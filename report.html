@@ -556,35 +556,37 @@ body {
                     <li class="passes">passes: <em>2</em></li>
                     <li class="pending">pending: <em>0</em></li>
                     <li class="failures">failures: <em>0</em></li>
-                    <li class="duration">duration: <em>697ms</em></li>
+                    <li class="duration">duration: <em>794ms</em></li>
                 </ul>
             </div>
-            <ul id="report"><li class="suite"><h1>API Test Suite coba</h1><ul><li class="test pass slow"><h2>Get single user<span class="duration">203ms</span></h2><pre><code>async function(){
-        // tembak url reqres
-        const hasil = await fetch(&#x27;https://reqres.in/api/users/2&#x27;)
-        // validasi http status nya harus 200
-        expect(hasil.status).to.equal(403)
-    }</code></pre></li><li class="test pass slow"><h2>Create new User<span class="duration">483ms</span></h2><pre><code>async function(){
-        const newPost = {
-            name: &#x22;Morpheus&#x22;,
-            job: &#x22;leader&#x22;
-        }
-        const hasilpost = await fetch(&#x27;https://reqres.in/api/users&#x27;, {
-            method: &#x27;POST&#x27;,
-            headers: {
-                &#x22;Content-Type&#x22;: &#x22;application/json&#x22;,
-                &#x22;x-api-key&#x22;: &#x22;reqres_73cf8090ed9d410ab8e0ad831e50df00&#x22;
-            },
-            body: JSON.stringify(newPost)
-        })
-        expect(hasilpost.status).to.equal(201)
-        // validasi json schema
-        const ajv = new Ajv()
-        const data = await hasilpost.json();
-        const cekcek = ajv.compile(schema_createnewuser)
-        const hasil_schema = cekcek(data)
-        expect(hasil_schema).to.be.true
-    }</code></pre></li></ul></li></ul>
+            <ul id="report"><li class="suite"><h1>Simple API Automation Test</h1><ul><li class="test pass slow"><h2>GET product by id<span class="duration">137ms</span></h2><pre><code>async function () {
+    const response = await fetch(&#x22;https://dummyjson.com/products/1&#x22;);
+    // assert status code
+    expect(response.status).to.equal(200);
+    const data = await response.json();
+    // assert response body
+    expect(data).to.have.property(&#x22;id&#x22;);
+    expect(data).to.have.property(&#x22;title&#x22;);
+  }</code></pre></li><li class="test pass slow"><h2>POST create new user<span class="duration">653ms</span></h2><pre><code>async function () {
+    const payload = {
+      firstName: &#x22;Vara&#x22;,
+      lastName: &#x22;QA&#x22;,
+      age: 21
+    };
+    const response = await fetch(&#x22;https://dummyjson.com/users/add&#x22;, {
+      method: &#x22;POST&#x22;,
+      headers: {
+        &#x22;Content-Type&#x22;: &#x22;application/json&#x22;
+      },
+      body: JSON.stringify(payload)
+    });
+    // assert status code
+    expect(response.status).to.equal(201);
+    const data = await response.json();
+    // assert response body
+    expect(data).to.have.property(&#x22;id&#x22;);
+    expect(data.firstName).to.equal(&#x22;Vara&#x22;);
+  }</code></pre></li></ul></li></ul>
         </div>
         <script>
         function hideSuitesWithout(className) {

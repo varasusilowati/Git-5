@@ -1,42 +1,44 @@
-import fetch from "node-fetch"
+import fetch from "node-fetch";
 import { expect } from "chai";
-import Ajv from "ajv";
-import schema_createnewuser from "../schema/reqresSchema.js";
 
-describe("API Test Suite coba", function(){
+describe("Simple API Automation Test", function () {
 
-    it("Get single user", async function(){
-        // tembak url reqres
-        const hasil = await fetch('https://reqres.in/api/users/2')
+  it("GET product by id", async function () {
+    const response = await fetch("https://dummyjson.com/products/1");
 
-        // validasi http status nya harus 200
-        expect(hasil.status).to.equal(403)
+    // assert status code
+    expect(response.status).to.equal(200);
+
+    const data = await response.json();
+
+    // assert response body
+    expect(data).to.have.property("id");
+    expect(data).to.have.property("title");
+  });
+
+  it("POST create new user", async function () {
+    const payload = {
+      firstName: "Vara",
+      lastName: "QA",
+      age: 21
+    };
+
+    const response = await fetch("https://dummyjson.com/users/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
     });
 
-    it("Create new User", async function(){
-        const newPost = {
-            name: "Morpheus",
-            job: "leader"
-        }
+    // assert status code
+    expect(response.status).to.equal(201);
 
-        const hasilpost = await fetch('https://reqres.in/api/users', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "x-api-key": "reqres_73cf8090ed9d410ab8e0ad831e50df00"
-            },
-            body: JSON.stringify(newPost)
-        })
+    const data = await response.json();
 
-        expect(hasilpost.status).to.equal(201)
+    // assert response body
+    expect(data).to.have.property("id");
+    expect(data.firstName).to.equal("Vara");
+  });
 
-        // validasi json schema
-        const ajv = new Ajv()
-        const data = await hasilpost.json();
-        const cekcek = ajv.compile(schema_createnewuser)
-        const hasil_schema = cekcek(data)
-
-        expect(hasil_schema).to.be.true
-    });
-
-})
+});
